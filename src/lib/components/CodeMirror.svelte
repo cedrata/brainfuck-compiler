@@ -1,8 +1,8 @@
 <!-- The code below is released under public domain. -->
-<script context="module">
+<script context="module" lang="js">
 	import { EditorView, minimalSetup, basicSetup } from 'codemirror';
 	// import { ViewPlugin } from '@codemirror/view'
-	import { StateEffect } from '@codemirror/state';
+	import { StateEffect, Transaction} from '@codemirror/state';
 	export { minimalSetup, basicSetup };
 </script>
 
@@ -51,7 +51,10 @@
 	 */
 	let _docCached = null;
 
-	/* Overwrite the bulk of the text with the one specified. */
+	/**
+	 * @description Overwrite the bulk of the text with the one specified.
+	 * @param {string} text
+	 */
 	function _setText(text) {
 		view?.dispatch({
 			changes: { from: 0, to: view.state.doc.length, insert: text }
@@ -60,9 +63,17 @@
 
 	const subscribers = new Set();
 
-	/* And here comes the reactivity, implemented as a r/w store. */
 	export const docStore = {
+		/**
+		 * @description TODO
+		 * @returns {boolean}
+		 */
 		ready: () => view !== null,
+		/** 
+		 * @description TODO
+		 * @param {any}	cb 
+		 * @returns {() => void}
+		*/
 		subscribe(cb) {
 			subscribers.add(cb);
 
@@ -77,6 +88,10 @@
 
 			return () => void subscribers.delete(cb);
 		},
+		/**
+		 * @description TODO
+		 * @param {string} newValue
+		 */
 		set(newValue) {
 			if (!_mounted) {
 				throw new Error('Cannot set docStore when the component is not mounted.');
@@ -98,7 +113,13 @@
 
 	$: extensions, _reconfigureExtensions();
 
+	/**
+	 * @description TODO
+	 * @param {Transaction} tr
+	 */
 	function _editorTxHandler(tr) {
+		console.log("Entering _editorTxHandler")
+		console.log(this)
 		this.update([tr]);
 
 		if (verbose) {
@@ -114,18 +135,25 @@
 		}
 	}
 
+	/**
+	 * @description TODO
+	 * @param {string} s
+	 */
 	function dispatchDocStore(s) {
+		console.log("Entering dispatchDocStore")
 		for (const cb of subscribers) {
 			cb(s);
 		}
+		console.log(subscribers)
+		console.log("Quitting dispatchDocStore")
 	}
 
-	// the view will be inited with the either doc (as long as that it is not `undefined`)
-	// or the value in docStore once set
 	/**
-	 * @param {string | undefined} initialDoc
+	 * @description TODO
+	 * @param {string} initialDoc
 	 */
 	function _initEditorView(initialDoc) {
+		console.log("Entering _initEditorView");
 		if (view !== null) {
 			return false;
 		}
@@ -136,12 +164,15 @@
 			parent: dom,
 			dispatch: _editorTxHandler
 		});
+		console.log("Quitting _initEditorView");
 		return true;
 	}
 
 	$: if (_mounted && doc !== undefined) {
+		console.log("Entering (_mounted && doc !== undefined")
 		const inited = _initEditorView(doc);
 		dispatchDocStore(doc);
+		console.log("Quitting (_mounted && doc !== undefined")
 	}
 
 	onDestroy(() => {
