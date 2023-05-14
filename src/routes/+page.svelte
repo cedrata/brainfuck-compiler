@@ -2,7 +2,7 @@
 	// https://svelte.dev/repl/91649ba3e0ce4122b3b34f3a95a00104?version=3.50.0
 	import CodeMirror, { basicSetup } from '$lib/components/CodeMirror.svelte';
 
-	/** @type {undefined}*/
+	/** @type {any}*/
 	let store;
 
 	/**
