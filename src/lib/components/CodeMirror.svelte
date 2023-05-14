@@ -56,11 +56,11 @@
 	 * @param {string} text
 	 */
 	function _setText(text) {
-		console.log('Enetring _setText')
+		console.log('Enetring _setText');
 		view?.dispatch({
 			changes: { from: 0, to: view.state.doc.length, insert: text }
 		});
-		console.log('Quitting _setText')
+		console.log('Quitting _setText');
 	}
 
 	const subscribers = new Set();
@@ -78,7 +78,7 @@
 		 * @returns {() => void}
 		 */
 		subscribe(cb) {
-			console.log('Entering docStore.subscribe')
+			console.log('Entering docStore.subscribe');
 			subscribers.add(cb);
 
 			if (!this.ready()) {
@@ -90,7 +90,7 @@
 				cb(_docCached);
 			}
 
-			console.log('Quitting docStore.subscribe')
+			console.log('Quitting docStore.subscribe');
 			return () => void subscribers.delete(cb);
 		},
 		/**
@@ -98,26 +98,26 @@
 		 * @param {string} newValue
 		 */
 		set(newValue) {
-			console.log('Entering docStore.set')
+			console.log('Entering docStore.set');
 			if (!_mounted) {
 				throw new Error('Cannot set docStore when the component is not mounted.');
 			}
 
 			const inited = _initEditorView(newValue);
 			if (!inited) _setText(newValue);
-			console.log('Quitting docStore.set')
+			console.log('Quitting docStore.set');
 		}
 	};
 
 	export let extensions = minimalSetup;
 
 	function _reconfigureExtensions() {
-		console.log('Entering _reconfigureExtensions')
+		console.log('Entering _reconfigureExtensions');
 		if (view === null) return;
 		view.dispatch({
 			effects: StateEffect.reconfigure.of(extensions)
 		});
-		console.log('Quitting _reconfigureExtensions')
+		console.log('Quitting _reconfigureExtensions');
 	}
 
 	$: extensions, _reconfigureExtensions();
@@ -142,7 +142,7 @@
 			}
 			dispatch('change', { view: this, tr });
 		}
-		console.log('Quitting _editorTxtHandler')
+		console.log('Quitting _editorTxtHandler');
 	}
 
 	/**
