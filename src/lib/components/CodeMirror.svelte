@@ -4,6 +4,12 @@
 	// import { ViewPlugin } from '@codemirror/view'
 	import { StateEffect, Transaction } from '@codemirror/state';
 	export { minimalSetup, basicSetup };
+	/**
+	 * @typedef DocStore
+	 * @property {function(): boolean} ready
+	 * @property {function(any): void} subscribe
+	 * @property {function(string): void} set
+	 */
 </script>
 
 <script>
@@ -65,18 +71,11 @@
 
 	const subscribers = new Set();
 
+	/**
+	 * @type {DocStore}
+	 */
 	export const docStore = {
-		/**
-		 * @description TODO
-		 * @returns {boolean}
-		 * @memberof DocStore
-		 */
 		ready: () => view !== null,
-		/**
-		 * @description TODO
-		 * @param {any}	cb
-		 * @returns {() => void}
-		 */
 		subscribe(cb) {
 			console.log('Entering docStore.subscribe');
 			subscribers.add(cb);
@@ -93,10 +92,6 @@
 			console.log('Quitting docStore.subscribe');
 			return () => void subscribers.delete(cb);
 		},
-		/**
-		 * @description TODO
-		 * @param {string} newValue
-		 */
 		set(newValue) {
 			console.log('Entering docStore.set');
 			if (!_mounted) {
