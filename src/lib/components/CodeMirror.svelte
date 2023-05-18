@@ -60,6 +60,7 @@
 	/**
 	 * @description Overwrite the bulk of the text with the one specified.
 	 * @param {string} text
+	 * @returns {void}
 	 */
 	function _setText(text) {
 		console.log('Enetring _setText');
@@ -106,6 +107,10 @@
 
 	export let extensions = minimalSetup;
 
+	/**
+	 * @descritpion TODO
+	 * @returns {void}
+	 */
 	function _reconfigureExtensions() {
 		console.log('Entering _reconfigureExtensions');
 		if (view === null) return;
@@ -121,6 +126,7 @@
 	 * @description TODO
 	 * @param {Transaction} tr
 	 * @this {EditorView}
+	 * @returns {void}
 	 */
 	function _editorTxtHandler(tr) {
 		console.log('Entering _editorTxtHandler');
@@ -143,6 +149,7 @@
 	/**
 	 * @description TODO
 	 * @param {string} s
+	 * @returns {void}
 	 */
 	function dispatchDocStore(s) {
 		console.log('Entering dispatchDocStore');
@@ -156,6 +163,7 @@
 	/**
 	 * @description TODO
 	 * @param {string} initialDoc
+	 * @return {boolean}
 	 */
 	function _initEditorView(initialDoc) {
 		console.log('Entering _initEditorView');
