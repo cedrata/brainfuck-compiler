@@ -18,10 +18,17 @@
 	}
 </script>
 
-<div>
+<div class="max-w-[1240px]">
+	<div class="w-[50%]">
 	<CodeMirror
 		doc={'Edit me!\nAnd here is the second line!!'}
 		bind:docStore={store}
 		extensions={basicSetup}
-	/>
+	/></div>
+	<div class="w-[50%]">
+	<CodeMirror
+		doc={'Edit me!\nAnd here is the second line!!'}
+		bind:docStore={store}
+		extensions={basicSetup}
+	/></div>
 </div>
