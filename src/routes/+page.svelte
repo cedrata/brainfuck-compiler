@@ -1,34 +1,11 @@
 <script>
 	// https://svelte.dev/repl/91649ba3e0ce4122b3b34f3a95a00104?version=3.50.0
-	import CodeMirror, { basicSetup } from '$lib/components/CodeMirror.svelte';
-
-	// /** @type {undefined | {ready: () => boolean, subscribe(cb: any): () => void, set(newValue: string): void}}*/
-	/**
-	 *
-	 * @type {undefined | import('$lib/components/CodeMirror.svelte').DocStore}
-	 */
-	let store;
-
-	/**
-	 * @param {CustomEvent} param0
-	 */
-	function changeHandler({ detail: { tr } }) {
-		console.log(tr);
-		console.log('change', tr.changes.toJSON());
-	}
+	import CodeMirror from '$lib/components/CodeMirror.svelte';
 </script>
-
-<div class="max-w-[1240px]">
-	<div class="w-[50%]">
-	<CodeMirror
-		doc={'Edit me!\nAnd here is the second line!!'}
-		bind:docStore={store}
-		extensions={basicSetup}
-	/></div>
-	<div class="w-[50%]">
-	<CodeMirror
-		doc={'Edit me!\nAnd here is the second line!!'}
-		bind:docStore={store}
-		extensions={basicSetup}
-	/></div>
+<div class="px-8">
+	<section id="txt-edit" class="grid grid-cols-2">
+		<div class="col-start-1 col-span-2 row-start-1">Tool bar</div>
+		<div class="col-start-1 row-start-2 row-span-2"><CodeMirror/></div>
+		<div class="col-start-2 row-start-2 row-span-2"><CodeMirror/></div>
+	</section>
 </div>
