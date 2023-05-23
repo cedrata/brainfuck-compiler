@@ -6,6 +6,10 @@
 
 <script>
 	import { onMount, onDestroy } from 'svelte';
+
+	/** @type {DOMRect | null}*/
+	export let rect;
+
 	/** @type {Element | DocumentFragment | undefined} */
 	let dom;
 
@@ -15,13 +19,8 @@
 	/** @type {EditorView | null}*/
 	let view = null;
 
-	let startState = EditorState.create({
-		doc: 'Hello World',
-		extensions: [basicSetup,EditorView.theme({
-			'&': { height: '700px' },
-			'.cm-scroller': { overflow: 'auto' },
-		})]
-	});
+	/** @type {EditorState | null}*/
+	let startState;
 
 	onMount(() => {
 		mounted = true;
@@ -33,12 +32,24 @@
 		}
 	});
 
-	$: if (mounted) {
+	$: if (mounted && rect !== null) {
+		console.log("mounted")
+		console.log(rect)
+		startState = EditorState.create({
+			doc: 'Hello World',
+			extensions: [
+				basicSetup,
+				EditorView.theme({
+					'&': { height: rect.height + 'px' },
+					'.cm-scroller': { overlow: 'auto' }
+				})
+			]
+		});
+
 		view = new EditorView({
 			state: startState,
 			parent: dom
 		});
-
 	}
 </script>
 
