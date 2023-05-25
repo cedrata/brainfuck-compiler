@@ -42,8 +42,8 @@
 		<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
 			<CodeMirror {rect} />
 		</div>
-		<div class="lg:hidden h-8 " />
-		<div class="lg:col-start-2 max-md:row-start-3 lg:row-start-2 lg:row-span-2">
+		<div class="lg:hidden h-8 max-md:row-start-3" />
+		<div class="lg:col-start-2 max-md:row-start-4 lg:row-start-2 lg:row-span-2">
 			<CodeMirror {rect} />
 		</div>
 	</section>
