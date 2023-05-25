@@ -1,14 +1,14 @@
 <script context="module">
 	import { basicSetup } from 'codemirror';
 	import { EditorView } from '@codemirror/view';
-	import { EditorState } from '@codemirror/state';
+	import { EditorState, SelectionRange } from '@codemirror/state';
 </script>
 
 <script>
 	import { onMount, onDestroy } from 'svelte';
 
-	/** @type {DOMRect | null}*/
-	export let rect;
+	/** @type {number | null}*/
+	export let editorHeight;
 
 	/** @type {Element | DocumentFragment | undefined} */
 	let dom;
@@ -16,10 +16,10 @@
 	/** @type {boolean} */
 	let mounted = false;
 
-	/** @type {EditorView | null}*/
+	/** @type {EditorView | null} */
 	let view = null;
 
-	/** @type {EditorState | null}*/
+	/** @type {EditorState | null} */
 	let startState;
 
 	onMount(() => {
@@ -32,15 +32,13 @@
 		}
 	});
 
-	$: if (mounted && rect !== null) {
-		console.log("mounted")
-		console.log(rect)
+	$: if (mounted && editorHeight !== null) {
 		startState = EditorState.create({
 			doc: 'Hello World',
 			extensions: [
 				basicSetup,
 				EditorView.theme({
-					'&': { height: rect.height + 'px' },
+					'&': { height: editorHeight + 'px' },
 					'.cm-scroller': { overlow: 'auto' }
 				})
 			]
