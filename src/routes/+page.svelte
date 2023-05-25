@@ -1,5 +1,4 @@
 <script>
-	// https://svelte.dev/repl/91649ba3e0ce4122b3b34f3a95a00104?version=3.50.0
 	import CodeMirror from '$lib/components/CodeMirror.svelte';
 	import { onMount } from 'svelte';
 
@@ -33,7 +32,21 @@
 		console.log('rect');
 		console.log(rect);
 	});
+
+	let doit;
+	function resizehanlder() {
+		console.log('resizing');
+	}
+	/**
+	 * @param {Event} event
+	 */
+	function handleResize(event) {
+		clearTimeout(doit);
+		doit = setTimeout(resizehanlder, 100);
+	}
 </script>
+
+<svelte:window on:resize={handleResize} />
 
 <div class="px-8">
 	<nav>Navbar placeholder</nav>
