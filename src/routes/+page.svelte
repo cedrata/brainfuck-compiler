@@ -14,10 +14,16 @@
 			>
 		</div>
 	</header>
-	<section class="flex justify-center flex-grow px-8">
+	<section class="flex justify-center flex-grow px-8 mt-8">
 		<div class="max-w-7xl w-full flex justify-between">
 			<div id="txt-edit" class="grid lg:grid-cols-2 gap-x-16 max-md:grid-cols-1 w-full">
-				<div id="tool-bar" class="col-start-1 lg:col-span-2 row-start-1 h-8">Tool bar</div>
+				<div
+					id="tool-bar"
+					class="col-start-1 lg:col-span-2 row-start-1 h-8 bg-neutral-100 flex flex-row space-x-4 px-4"
+				>
+					<button class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button>
+					<button class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button>
+				</div>
 				<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
 					<CodeMirror {editorHeight} />
 				</div>
