@@ -1,23 +1,12 @@
-class ValidationError extends Error {
-    /**
-     * @param {string} message 
-     */
-    constructor(message) {
-        super(message);
-        this.name = "ValidationError";
-    }
-}
-
 const COMMENT = '#'
-const VALID_CHARS = '<>,.+-[]'
+const VALID_CHARS = '<>,.+-[] '
 
 /**
  * This function parses a brainf*ck string in the linux format.
  * 
  * IMPORTANT!!! The convedrsion from dos to linux file must be done separately.
  * @param {string} content 
- * @throws {ValidationError}
- * @returns {boolean}
+ * @returns 
  */
 export function parse(content) {
     /** 
@@ -25,21 +14,41 @@ export function parse(content) {
      * @type {number} */
     let pda = 0;
 
-    // Isolate each line to 
-    content.split('\n').forEach(function (row, index) {
-        for (let col = 0; col < row.length; col++) {
-            if (row[col] === COMMENT) 
-                return;
+    /**
+     * @type {{success: boolean, description: string}}
+     */
+    let res = {
+        success: true,
+        description: ''
+    }
 
-            if (VALID_CHARS.indexOf(row[col]) < 0) 
-                throw new ValidationError('Unexpected char at row ' + (index + 1) + ' column ' + (col + 1))
+    const rows = content.split('\n');
+    for (let row = 0; row < rows.length; row++) {
+        for (let col = 0; col < rows[row].length; col++) {
+            if (rows[row][col] === COMMENT)
+                break;
 
-            if (pda === 0 && row[col] === ']') 
-                throw new ValidationError('Unexpected closing "]" at row ' + (index + 1) + ' columt ' + (col + 1))
+            if (VALID_CHARS.indexOf(rows[row][col]) < 0) {
+                res.success = false;
+                res.description = 'Unexpected char at row ' + (row + 1) + ' column ' + (col + 1)
+                break;
+            }
 
-            pda++;
+            if (pda === 0 && rows[row][col] === ']') {
+                res.success = false;
+                res.description = 'Unexpected closing "]" at row ' + (row + 1) + ' column ' + (col + 1)
+                break;
+            }
+
+            if (rows[row][col] === ']') {
+                pda--;
+            } else if (rows[row][col] === '[') {
+                pda++;
+            }
+
         }
-    })
+        if (res.success === false) break;
+    }
 
-    return true;
+    return res;
 }
