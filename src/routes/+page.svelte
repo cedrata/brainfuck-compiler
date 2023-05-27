@@ -21,8 +21,10 @@
 					id="tool-bar"
 					class="col-start-1 lg:col-span-2 row-start-1 h-8 bg-neutral-100 flex flex-row space-x-4"
 				>
-					<button class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button>
-					<button class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button>
+					<button title="Run the code compilation" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button>
+					<button title="Format the given code" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button>
+					<button title="Upload a brainf*ck script from your computer" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">UPL</button>
+					<button title="Download the compilation result to your computer" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">DNL</button>
 				</div>
 				<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
 					<CodeMirror {editorHeight} />
