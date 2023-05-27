@@ -16,10 +16,10 @@
 	</header>
 	<section class="flex justify-center flex-grow px-8 mt-8">
 		<div class="max-w-7xl w-full flex justify-between">
-			<div id="txt-edit" class="grid lg:grid-cols-2 gap-x-16 max-md:grid-cols-1 w-full">
+			<div id="txt-edit" class="grid lg:grid-cols-2 gap-x-16 max-md:grid-cols-1 w-full auto-rows-min">
 				<div
 					id="tool-bar"
-					class="col-start-1 lg:col-span-2 row-start-1 h-8 bg-neutral-100 flex flex-row space-x-4"
+					class="col-start-1 lg:col-span-2 row-start-1 h-8 bg-neutral-100 flex flex-row space-x-4 gap-0"
 				>
 					<button title="Run the code compilation" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button>
 					<button title="Format the given code" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button>
