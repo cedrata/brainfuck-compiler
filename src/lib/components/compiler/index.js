@@ -52,3 +52,98 @@ export function parse(content) {
 
     return res;
 }
+
+/**
+ * This function translates the brainf*ck code to actual c code.
+ * @param {string} content 
+ * @returns
+ */
+export function compile(content) {
+    // Validate the content string with the parser.
+    // If the `success` attribute of the parser return obj is `false`
+    // terminate the execution.
+    let res = parse(content)
+    if (res.success === false) return res;
+
+    // %code% is to replace with the actual code translation.
+    const template =
+`#include<stdio.h>
+#define LEN 1000
+int main(void)
+{
+    unsigned char *tape;
+    size_t head = 0;
+
+    tape = (unsigned char*) malloc(LEN * sizeof(unsigned char));
+
+%code%
+    free(tape);
+
+    reutrn 0;
+}
+`
+
+    let code = '%code%';
+
+    // Each indentation unit is 4 white spaces to put before
+    let indent = 1;
+    const spaces = 4;
+
+    for (let i = 0; i < content.length; i++) {
+        switch (content[i]) {
+            case '+':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + '++ *(tape + head);\n%code%');
+                break;
+
+            case '-':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + '-- *(tape + head);\n%code%');
+                break;
+
+            case '>':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + '++head;\n%code%');
+                break;
+
+            case '<':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + '--head;\n%code%');
+                break;
+
+            case '.':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + 'putchar( *(tape + head));\n%code%');
+                break;
+
+            case ',':
+                code = code.replace('%code%', ' '.repeat(indent * spaces) + '*(tape + head) = getchar();\n%code%');
+                break;
+
+            case '[':
+                code = code.replace(
+                    '%code%', 
+                    ' '.repeat(indent * spaces) + 'while ( *(tape + head))\n' 
+                    + ' '.repeat(indent * spaces) + '{\n'
+                    + '%code%'
+                    + ' '.repeat(indent * spaces) + '}\n%code%'
+                ); 
+
+                indent++;
+                break;
+
+            case ']':
+                code = code.replace('%code%', '')
+
+                indent--;
+
+            case '#':
+                let temp = code.indexOf('\n');
+                i = temp >= 0 ? temp : i;
+                break;
+
+            default:
+                code = code.replace('%code%', '')
+                break;
+        }
+    }
+
+    res.description = template.replace('%code%', code).replace('%code%', '');
+
+    return res;
+}
