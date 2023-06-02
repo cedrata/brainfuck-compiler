@@ -87,10 +87,10 @@
 						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500"
 						on:click={run}>RUN</button
 					>
-					<button
+					<!-- <button
 						title="Format the given code"
 						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button
-					>
+					> -->
 					<button
 						title="Upload a brainf*ck script from your computer"
 						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500"
