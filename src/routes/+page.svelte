@@ -1,5 +1,6 @@
 <script>
 	import CodeMirror from '$lib/components/CodeMirror.svelte';
+	import { compile } from '$lib/components/compiler';
 
 	/** @type {number | null}*/
 	let editorHeight = 500;
@@ -9,6 +10,9 @@
 
 	/** @type {CodeMirror}*/
 	let cView;
+
+	let initialDoc =
+		'++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.';
 
 	/**
 	 * Function to open a single file .
@@ -36,9 +40,14 @@
 		openFile().then((file) => {
 			// readFile(result);
 			file.text().then((content) => {
-				bfView.updateDoc(content);
+				// bfView.updateDoc(content);
+				bfView.props.doc = content;
 			});
 		});
+	}
+
+	function run() {
+		cView.props.doc = compile(bfView.props.doc).description;
 	}
 </script>
 
@@ -63,7 +72,8 @@
 				>
 					<button
 						title="Run the code compilation"
-						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500"
+						on:click={run}>RUN</button
 					>
 					<button
 						title="Format the given code"
@@ -80,11 +90,15 @@
 					>
 				</div>
 				<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
-					<CodeMirror {editorHeight} bind:this={bfView} />
+					<CodeMirror {editorHeight} {initialDoc} bind:this={bfView} />
 				</div>
 				<div class="lg:hidden h-8 max-md:row-start-3" />
 				<div class="lg:col-start-2 max-md:row-start-4 lg:row-start-2 lg:row-span-2">
-					<CodeMirror {editorHeight} bind:this={cView} />
+					<CodeMirror
+						{editorHeight}
+						initialDoc={compile(initialDoc).description}
+						bind:this={cView}
+					/>
 				</div>
 			</div>
 		</div>

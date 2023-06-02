@@ -10,6 +10,9 @@
 	/** @type {number | null}*/
 	export let editorHeight;
 
+	/** @type {string | undefined}*/
+	export let initialDoc = undefined;
+
 	/** @type {Element | DocumentFragment | undefined} */
 	let dom;
 
@@ -34,7 +37,7 @@
 
 	$: if (mounted && editorHeight !== null) {
 		startState = EditorState.create({
-			doc: 'Hello World',
+			doc: (initialDoc === undefined) ? '' : initialDoc,
 			extensions: [
 				basicSetup,
 				EditorView.theme({
@@ -50,18 +53,24 @@
 		});
 	}
 
-	/**
-	 * TODO change the content of the text edito.
-	 * @param {string} doc
-	 */
-	export function updateDoc(doc) {
-		view?.dispatch({
-			changes: {
-				from: 0,
-				to: view.state.doc.length,
-				insert: doc
-			}
-		})
+	export const props = {
+		/**
+		 * @param {string} doc
+		 */
+		set doc(doc) {
+			view?.dispatch({
+				changes: {
+					from: 0,
+					to: view.state.doc.length,
+					insert: doc
+				}
+			});
+		},
+		/** @returns {string} */
+		get doc() {
+			if (view === null) return '';
+			return view.state.doc.toJSON().join('\n');
+		}
 	};
 </script>
 
