@@ -67,7 +67,7 @@
 	<header class="h-16 bg-accent flex justify-center px-8">
 		<div class="max-w-7xl w-full flex justify-between">
 			<a href="/" class="flex"><div class="self-center">BF-Compiler</div></a>
-			<a href="https://cedrata.github.io/portfolio" class="flex"
+			<a href="https://ko-fi.com/cedrata" class="flex"
 				><div class="self-center">Wunt sum Cedrata?</div></a
 			>
 		</div>
