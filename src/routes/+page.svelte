@@ -46,6 +46,18 @@
 		});
 	}
 
+	function getCDoc() {
+		/** @type {HTMLAnchorElement}*/
+		let elem = document.createElement('a');
+
+		elem.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(cView.props.doc);
+		console.log(elem);
+		elem.download = 'output.c';
+
+		document.body.appendChild(elem);
+		elem.click();
+		document.body.removeChild(elem);
+	}
 	function run() {
 		cView.props.doc = compile(bfView.props.doc).description;
 	}
@@ -86,7 +98,8 @@
 					>
 					<button
 						title="Download the compilation result to your computer"
-						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">DNL</button
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500"
+						on:click={getCDoc}>DNL</button
 					>
 				</div>
 				<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
