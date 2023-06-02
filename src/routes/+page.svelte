@@ -1,8 +1,45 @@
 <script>
 	import CodeMirror from '$lib/components/CodeMirror.svelte';
 
-	/** @type {number | null} */
+	/** @type {number | null}*/
 	let editorHeight = 500;
+
+	/** @type {CodeMirror}*/
+	let bfView;
+
+	/** @type {CodeMirror}*/
+	let cView;
+
+	/**
+	 * Function to open a single file .
+	 * @returns {Promise<File>}
+	 */
+	function openFile() {
+		return new Promise((resolve) => {
+			/** @type {HTMLInputElement}*/
+			let input = document.createElement('input');
+			input.type = 'file';
+			input.multiple = false;
+
+			input.onchange = () => {
+				if (input.files !== null) {
+					let file = input.files[0];
+					resolve(file);
+				}
+			};
+			input.click();
+		});
+	}
+
+	function updateBfDoc() {
+		/** @type {string} */
+		openFile().then((file) => {
+			// readFile(result);
+			file.text().then((content) => {
+				bfView.updateDoc(content);
+			});
+		});
+	}
 </script>
 
 <div class="flex flex-col h-screen">
@@ -16,22 +53,38 @@
 	</header>
 	<section class="flex justify-center flex-grow px-8 mt-8">
 		<div class="max-w-7xl w-full flex justify-between">
-			<div id="txt-edit" class="grid lg:grid-cols-2 gap-x-16 max-md:grid-cols-1 w-full auto-rows-min">
+			<div
+				id="txt-edit"
+				class="grid lg:grid-cols-2 gap-x-16 max-md:grid-cols-1 w-full auto-rows-min"
+			>
 				<div
 					id="tool-bar"
 					class="col-start-1 lg:col-span-2 row-start-1 h-8 bg-neutral-100 flex flex-row space-x-4 gap-0"
 				>
-					<button title="Run the code compilation" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button>
-					<button title="Format the given code" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button>
-					<button title="Upload a brainf*ck script from your computer" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">UPL</button>
-					<button title="Download the compilation result to your computer" class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">DNL</button>
+					<button
+						title="Run the code compilation"
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">RUN</button
+					>
+					<button
+						title="Format the given code"
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">FMT</button
+					>
+					<button
+						title="Upload a brainf*ck script from your computer"
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500"
+						on:click={updateBfDoc}>UPL</button
+					>
+					<button
+						title="Download the compilation result to your computer"
+						class="bg-neutral text-base-100 px-4 hover:bg-neutral-500">DNL</button
+					>
 				</div>
 				<div class="lg:col-start-1 max-md:row-start-2 lg:row-start-2 lg:row-span-2">
-					<CodeMirror {editorHeight} />
+					<CodeMirror {editorHeight} bind:this={bfView} />
 				</div>
 				<div class="lg:hidden h-8 max-md:row-start-3" />
 				<div class="lg:col-start-2 max-md:row-start-4 lg:row-start-2 lg:row-span-2">
-					<CodeMirror {editorHeight} />
+					<CodeMirror {editorHeight} bind:this={cView} />
 				</div>
 			</div>
 		</div>

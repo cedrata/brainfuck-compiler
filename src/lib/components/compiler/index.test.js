@@ -34,7 +34,7 @@ describe('Parser: valid string actual code', () => {
 describe('Translator: valid string conversion', () => {
     it('Provide `+` and should return some c code', () => {
         expect(compile('+>,<.[->]')).toStrictEqual({success: true, description:
-`#include<stdio.h>
+`#include<malloc.h>
 #define LEN 1000
 int main(void)
 {
@@ -56,7 +56,7 @@ int main(void)
 
     free(tape);
 
-    reutrn 0;
+    return 0;
 }
 `
         })

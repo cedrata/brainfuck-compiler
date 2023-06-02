@@ -67,7 +67,7 @@ export function compile(content) {
 
     // %code% is to replace with the actual code translation.
     const template =
-`#include<stdio.h>
+`#include<malloc.h>
 #define LEN 1000
 int main(void)
 {
@@ -79,7 +79,7 @@ int main(void)
 %code%
     free(tape);
 
-    reutrn 0;
+    return 0;
 }
 `
 
@@ -131,6 +131,7 @@ int main(void)
                 code = code.replace('%code%', '')
 
                 indent--;
+                break;
 
             case '#':
                 let temp = code.indexOf('\n');

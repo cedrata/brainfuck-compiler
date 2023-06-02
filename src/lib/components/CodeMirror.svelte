@@ -1,7 +1,7 @@
 <script context="module">
 	import { basicSetup } from 'codemirror';
 	import { EditorView } from '@codemirror/view';
-	import { EditorState, SelectionRange } from '@codemirror/state';
+	import { EditorState } from '@codemirror/state';
 </script>
 
 <script>
@@ -49,6 +49,20 @@
 			parent: dom
 		});
 	}
+
+	/**
+	 * TODO change the content of the text edito.
+	 * @param {string} doc
+	 */
+	export function updateDoc(doc) {
+		view?.dispatch({
+			changes: {
+				from: 0,
+				to: view.state.doc.length,
+				insert: doc
+			}
+		})
+	};
 </script>
 
 <div class="codemirror" bind:this={dom} />
