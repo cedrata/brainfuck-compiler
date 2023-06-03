@@ -1,12 +1,10 @@
 # Landin page template with Svelte Kit and TailwindCSS
 Template provided by [cedrata](https://github.com/cedrata/).
 
-This is a simple demo project to help you getting started in the creation of a simple (static content) landing page made with Svelte using TailwindCSS and DaisyUI (nice little TailwindCSS wrapper) to style it out.
-You can create your own repository starting from this template already configured to use TailwindCSS and DaisyUI.
+This is a simple brainfuck compiler, the purpose of it is learn how to create a web-based text editor and dig deeper in Svelte.
+If you like this project and find it usefuls please consider buying a coffee:
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E5E3EKB)
 
-If your needs are different and you require different configurations refeer to Svelte npm package, Tailwind installation documentation and DaisyUI.
-
-The page in this template will be hosted inside github pages.
 ## Developing
 
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
@@ -19,16 +17,13 @@ npm run dev -- --open
 ```
 
 All source code is contained in ```${root}/src```
+```sh
+src # source directory for all the code.
+├── lib # directory for all local libraries and componentes.
+│   ├── compiler # local library for the BF compiler.
+│   └── components # all the svelte components of the application.
+└── routes # routes and pages required to run svelte application.
 ```
-+-assets // images and static data
-|
-+-components // local project components
-| |
-| +layout // layout components
-|
-+-routes // check svelte documentation
-```
-I personally like to have a ```data``` and ```stores``` directories in ```${root}/src/lib/``` to keep any static data and a Svelte stores.
 
 About styling please refer to [TailwindCSS](https://tailwindcss.com/) and [DaisyUI](https://daisyui.com/) docs
 
