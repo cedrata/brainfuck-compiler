@@ -27,6 +27,7 @@ src # source directory for all the code.
 
 About styling please refer to [TailwindCSS](https://tailwindcss.com/) and [DaisyUI](https://daisyui.com/) docs
 
+The `static/.nojekyll` file is required in order to make css styling effective when hosting on GitHub pages.
 ## Building & Deploy
 
 To deploy your static content to github pages run:
