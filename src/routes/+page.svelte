@@ -1,6 +1,6 @@
 <script>
 	import CodeMirror from '$lib/components/CodeMirror.svelte';
-	import { compile } from '$lib/components/compiler';
+	import { compile } from '$lib/compiler';
 
 	/** @type {number | null}*/
 	let editorHeight = 500;
@@ -64,15 +64,15 @@
 </script>
 
 <div class="flex flex-col h-screen">
-	<header class="h-16 bg-accent flex justify-center px-8">
-		<div class="max-w-7xl w-full flex justify-between">
-			<a href="/" class="flex"><div class="self-center">BF-Compiler</div></a>
-			<a href="https://ko-fi.com/cedrata" class="flex"
+	<header class="min-h-16 bg-accent flex justify-center px-8">
+		<div class="max-w-7xl w-full flex-grow flex justify-between">
+			<a href="https://github.com/cedrata/brainfuck-compiler" class="flex hover:bg-accent-focus"><div class="self-center font-bold">BF-Compiler</div></a>
+			<a href="https://ko-fi.com/cedrata" class="flex hover:bg-accent-focus"
 				><div class="self-center">Wunt sum Cedrata?</div></a
 			>
 		</div>
 	</header>
-	<section class="flex justify-center flex-grow px-8 mt-8">
+	<section class="flex justify-center px-8 mt-8">
 		<div class="max-w-7xl w-full flex justify-between">
 			<div
 				id="txt-edit"
@@ -115,6 +115,17 @@
 				</div>
 			</div>
 		</div>
+	</section>
+	<section class="flex flex-grow justify-center px-8 mt-8">
+		<div class="max-w-7xl w-full">
+			<h3 class="font-bold">Some context</h3>
+			<p>This is a simple brainf*uck compiler, you are maybe asking: "why?", well, because I wanted to. My purpose was to build something with a web based text editor, the simplest thing possible. If you'd like to have a look at the code just click <a href="https://github.com/cedrata/brainfuck-compiler" class="text-accent hover:text-accent-focus">here</a>.</p>
+			<h3 class="font-bold pt-4">How to use</h3>
+			<p>On the left editor type your brainf*ck code or import it with the "UPL" button.</p>
+			<p>Once the code is ready you can simply hit the "RUN" button to transform it to C code.</p>
+			<p>You can now download the compiler code with the "DNL" button and try it out.</p>
+			<p class="pt-4">At this point just try the code compiling it with a C compiler (you can use also an online C compiler like <a href="https://www.onlinegdb.com/online_c_compiler" class="text-accent hover:text-accent-focus">this one</a>)</p>
+		</div>	
 	</section>
 	<footer class="bg-secondary mt-8 py-4 px-8">
 		<div class="flex justify-center align-middle">
