@@ -38,3 +38,5 @@ npm run build
 This will create a ```/docs``` directory in root to make github pages to deploy your.
 
 To enable github pages and host the page go to repository settings and enable pages on main branch searching for the ```docs/``` directory (configured directory to build the static page).
+
+This application is up & running online, you can try it [here](https://cedrata.github.io/brainfuck-compiler)
